@@ -8,7 +8,7 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title> @yield('page-title') </title>
 
     <meta name="description" content="" />
 
@@ -104,7 +104,7 @@
                         </a>
                     </li>
                     <li class="menu-item">
-                        <a href="{{ route('allcategory') }}" class="menu-link">
+                        <a href="{{ route('allsubcategory') }}" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-copy"></i>
                             <div data-i18n="Extended UI">All Subcategory</div>
                         </a>
