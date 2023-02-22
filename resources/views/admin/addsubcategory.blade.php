@@ -15,8 +15,18 @@
             <h5 class="mb-0">Add New Sub Category</h5>
             <small class="text-muted float-end">Add Information</small>
           </div>
+          @if ($errors->any())
+          <div class="alert alert-danger">
+              <ul>
+                  @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                  @endforeach
+              </ul>
+          </div>
+      @endif
           <div class="card-body">
-            <form>
+            <form action="{{ route('storesubcategory') }}" method="POST">
+              @csrf
               <div class="row mb-3">
                 <label class="col-sm-2 col-form-label" for="basic-default-name">Sub Category Name</label>
                 <div class="col-sm-10">
@@ -26,11 +36,11 @@
               <div class="row mb-3">
                 <label class="col-sm-2 col-form-label" for="basic-default-name" >Select Category</label>
                 <div class="col-sm-10">
-                    <select id="defaultSelect" class="form-select" name="select_category">
+                    <select id="defaultSelect" class="form-select" name="category_id">
                         <option>Select Category</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        @foreach ($category_info as $category)                          
+                        <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                        @endforeach
                       </select>
                 </div>
               </div>

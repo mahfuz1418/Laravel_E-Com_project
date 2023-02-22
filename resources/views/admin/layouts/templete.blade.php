@@ -13,7 +13,7 @@
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('dashboard/assets/') }}img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('dashboard/assets/img/favicon/favicon.ico') }}" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -238,10 +238,13 @@
                                         <div class="dropdown-divider"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="auth-login-basic.html">
-                                            <i class="bx bx-power-off me-2"></i>
-                                            <span class="align-middle">Log Out</span>
-                                        </a>
+                                        <form action="{{ route('logout') }}" method="post">
+                                            @csrf
+                                            <button class="dropdown-item" >
+                                                <i class="bx bx-power-off me-2"></i>
+                                                <span class="align-middle">Log Out</span>
+                                            </button>
+                                        </form>
                                     </li>
                                 </ul>
                             </li>

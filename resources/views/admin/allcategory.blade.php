@@ -6,6 +6,11 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Page/</span> All Category</h4>
       <!-- Basic Bootstrap Table -->
+      @if(session()->has('message'))
+        <div class="alert alert-success text-center">
+          {{ session()->get('message') }}
+        </div>
+      @endif
       <div class="card">
         <h5 class="card-header">Available Category Information</h5>
         <div class="table-responsive text-nowrap">
@@ -20,16 +25,20 @@
               </tr>
             </thead>
             <tbody class="table-border-bottom-0">
+              @forelse ($categories as $category)
               <tr >
-                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>1</strong></td>
-                <td>Jwellary</td>
-                <td>12</td>
-                <td>2</td>
+                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ $category->id }}</strong></td>
+                <td>{{ $category->category_name }}</td>
+                <td>{{ $category->subcategory_count }}</td>
+                <td>{{ $category->product_count }}</td>
                 <td>
-                    <a href="" class="btn btn-primary">Edit</a>
-                    <a href="" class="btn btn-warning">Delete</a>
+                    <a href="{{ route('editcategory', $category->id ) }}" class="btn btn-primary">Edit</a>
+                    <a href="{{ route('deletecategory', $category->id ) }}" class="btn btn-warning">Delete</a>
                 </td>
-              </tr>
+              </tr>  
+              @empty
+              <tr><td>No Category Added</td></tr>
+              @endforelse
             </tbody>
           </table>
         </div>
