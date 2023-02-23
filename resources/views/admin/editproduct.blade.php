@@ -1,10 +1,10 @@
 @extends('admin.layouts.templete')
 @section('page-title')
-    Add Products - Single E-Commmarce
+    Edit Products - Single E-Commmarce
 @endsection
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Page/</span> Add Product</h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Page/</span> Edit Product</h4>
 
     <!-- Basic Layout & Basic with Icons -->
     <div class="row">
@@ -12,8 +12,8 @@
       <div class="col-xxl">
         <div class="card mb-4">
           <div class="card-header d-flex align-items-center justify-content-between">
-            <h5 class="mb-0">Add New Product</h5>
-            <small class="text-muted float-end">Add Information</small>
+            <h5 class="mb-0">Edit Product</h5>
+            <small class="text-muted float-end">Edit Information</small>
           </div>
           @if ($errors->any())
           <div class="alert alert-danger">
@@ -25,12 +25,12 @@
           </div>
       @endif
           <div class="card-body">
-            <form action="{{ route('storeproduct') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('updateproduct') }}" method="post" enctype="multipart/form-data">
               @csrf
               <div class="row mb-3">
                 <label class="col-sm-2 col-form-label" for="product_name">Product Name</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="product_name" name="product_name" placeholder="Electronics" />
+                  <input type="text" class="form-control" id="product_name" name="product_name" value="" />
                 </div>
               </div>
               <div class="row mb-3">
@@ -84,7 +84,7 @@
               </div>
               <div class="row justify-content-end">
                 <div class="col-sm-10">
-                  <button type="submit" class="btn btn-primary">Add Product</button>
+                  <button type="submit" class="btn btn-primary">Edit Product</button>
                 </div>
               </div>
             </form>

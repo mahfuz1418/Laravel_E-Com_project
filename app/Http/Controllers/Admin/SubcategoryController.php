@@ -24,7 +24,7 @@ class SubcategoryController extends Controller
     {
         $request->validate([
             'subcategory_name' => 'required|unique:subcategories,subcategory_name',
-            'category_id' => 'required'
+            'category_id' => 'required',
         ]);
         $category_id = $request->category_id;
         $category_name = Category::where('id', $category_id)->value('category_name');
@@ -62,5 +62,15 @@ class SubcategoryController extends Controller
         Subcategory::findOrFail($id)->delete();
         Category::where('id', $cat_id)->decrement('subcategory_count', 1);
         return redirect()->route('allsubcategory')->with('message', 'Sub Category Deleted Successfully!');
+    }
+    public function GetSubcategory(Request $request)
+    {
+        $category_id = $request->category_id;
+        $sub_categories_lists = Subcategory::where('category_id', $category_id)->get();
+        $subCategoryName = '';
+        foreach ($sub_categories_lists as  $sub_category_list) {
+            $subCategoryName .= "<option value='$sub_category_list->id'> $sub_category_list->subcategory_name </option>";
+        }
+        return $subCategoryName;
     }
 }

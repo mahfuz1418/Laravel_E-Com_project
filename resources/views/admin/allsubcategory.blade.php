@@ -27,7 +27,7 @@
             <tbody class="table-border-bottom-0">
               @forelse ($subcategories as $subcategory)    
               <tr >
-                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ $subcategory->id }}</strong></td>
+                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{ $loop->iteration }}</strong></td>
                 <td>{{ $subcategory->subcategory_name }}</td>
                 <td>{{ $subcategory->category_name }}</td>
                 <td>{{ $subcategory->product_count }}</td>

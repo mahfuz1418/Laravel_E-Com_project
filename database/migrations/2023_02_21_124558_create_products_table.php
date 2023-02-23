@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('product_short_des');
             $table->text('product_long_des');
             $table->integer('price');
+            $table->integer('product_quantity');
             $table->string('product_category_name');
             $table->integer('product_category_id');
             $table->string('product_subcategory_name');
