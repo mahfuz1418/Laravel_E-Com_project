@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SubcategoryController;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
@@ -21,13 +23,24 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
+Route::controller(HomeController::class)->group(function(){
+    Route::get('/', 'Index')->name('home');
+});
+Route::controller(ClientController::class)->group(function(){
+    Route::get('/category', 'CategoryPage')->name('categorypage');
+    Route::get('/single-product', 'SingleProduct')->name('singleproduct');
+    Route::get('/add-to-cart', 'AddToCart')->name('addtocart');
+    Route::get('/checkout', 'Checkout')->name('checkout');
+    Route::get('/user-profile', 'UserProfile')->name('userprofile');
+    Route::get('/new-release', 'NewRelease')->name('newrelase');
+    Route::get('/today-deal', 'TodayDeal')->name('todaydeal');
+    Route::get('/customer-service', 'CustomerService')->name('cutomerservice');
+
+});
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified', 'role:admin'])->name('dashboard');
+})->middleware(['auth', 'verified', 'role:admin'])->name('dashboard'); 
 
 Route::middleware('auth', 'role:admin')->group(function () {
     Route::controller(DashboardController::class)->group(function(){
@@ -57,6 +70,8 @@ Route::middleware('auth', 'role:admin')->group(function () {
         Route::get('/admin/edit-product/{id}', 'EditProduct')->name('editproduct');
         Route::get('/admin/delete-product/{id}', 'DeleteProduct')->name('deleteproduct');
         Route::post('/admin/update-product', 'UpdateProduct')->name('updateproduct');
+        Route::get('/admin/edit-product-img/{id}', 'EditProductImg')->name('editproductimg');
+        Route::post('/admin/update-product-img', 'UpdateProductImg')->name('updateproductimg');
     });
     Route::controller(OrderController::class)->group(function(){
         Route::get('/admin/pending-orders', 'Index')->name('pendingorders');

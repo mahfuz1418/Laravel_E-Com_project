@@ -96,29 +96,29 @@
 @endsection
 @section('script')
 <script>
-    $(document).ready(function() {
-        // category ajax
-        $('#select_category').change(function() {
-            var category_id = $(this).val();
-            if (category_id) {
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $.ajax({
-                    type: 'POST',
-                    url: '/admin/product/subcategorylist',
-                    data: {
-                        category_id: category_id
-                    },
-                    success: function(data) {
-                        $("#sub_category").html(data);
-                    }
-                });
-            }
-        })
-    })
+  $(document).ready(function() {
+      // category ajax
+      $('#select_category').change(function() {
+          var category_id = $(this).val();
+          if (category_id) {
+              $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+              });
+              $.ajax({
+                  type: 'POST',
+                  url: '/admin/product/subcategorylist',
+                  data: {
+                      category_id: category_id
+                  },
+                  success: function(data) {
+                      $("#sub_category").html(data);
+                  }
+              });
+          }
+      })
+  })
 </script>
 
 @endsection
