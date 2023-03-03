@@ -4,7 +4,8 @@
         <div id="main_slider" class="carousel slide" data-ride="carousel">
             <div class="carousel-item active">
                 <div class="container">
-                    <h1 class="fashion_taital">{{ $category->category_name }} - ({{ $category->product_count }})</h1>
+                    <h1 class="fashion_taital">{{ $subcategory->subcategory_name }} - ({{ $subcategory->product_count }})
+                    </h1>
                     <div class="fashion_section_2">
                         <div class="row">
                             @forelse($products as $product)
@@ -17,9 +18,9 @@
                                         <div class="btn_main">
                                             <form action="{{ route('addproductcart') }}" method="POST">
                                                 @csrf
-                                                <input type="hidden" name="id" value="{{ $product->id }}">
-                                                <input type="hidden" name="quantity" value="1" >
-                                                <input type="hidden" name="price" value="{{ $product->price }}" >
+                                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                <input type="hidden" name="quantity" value="1">
+                                                <input type="hidden" name="price" value="{{ $product->price }}">
                                                 <button class="btn btn-warning mt-3 buy_bt" type="submit">Add To
                                                     Cart</button>
                                             </form>

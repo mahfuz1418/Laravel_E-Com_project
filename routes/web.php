@@ -11,33 +11,37 @@ use App\Http\Controllers\ProfileController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 
 
 Route::controller(HomeController::class)->group(function(){
     Route::get('/', 'Index')->name('home');
 });
 Route::controller(ClientController::class)->group(function(){
-    Route::get('/category', 'CategoryPage')->name('categorypage');
-    Route::get('/single-product', 'SingleProduct')->name('singleproduct');
-    Route::get('/add-to-cart', 'AddToCart')->name('addtocart');
-    Route::get('/checkout', 'Checkout')->name('checkout');
-    Route::get('/user-profile', 'UserProfile')->name('userprofile');
+    Route::get('/category/{id}/{slug}', 'CategoryPage')->name('category');
+    Route::get('/subcategory/{id}/{slug}', 'SubCategoryPage')->name('subcategory');
+    Route::get('/product-info/{id}/{slug}', 'SingleProduct')->name('singleproduct');
     Route::get('/new-release', 'NewRelease')->name('newrelase');
-    Route::get('/today-deal', 'TodayDeal')->name('todaydeal');
-    Route::get('/customer-service', 'CustomerService')->name('cutomerservice');
+
 
 });
+
+Route::middleware('auth', 'role:user')->group(function(){
+    Route::controller(ClientController::class)->group(function(){
+         Route::get('/add-to-cart', 'AddToCart')->name('addtocart');
+         Route::post('/add-product-cart', 'AddProductCart')->name('addproductcart');
+         Route::get('/remove-product-cart/{id}', 'RemoveCart')->name('removeproduct');
+         Route::get('/shipping-address', 'ShippingAddress')->name('shippingaddress');
+         Route::post('/add-shipping-address', 'AddShippingAddress')->name('addshippingaddress');
+         Route::get('/checkout', 'CheckOut')->name('checkout');
+         Route::post('/place-order', 'PlaceOrder')->name('placeorder');
+         Route::get('/user-profile', 'UserProfile')->name('userprofile');
+         Route::get('/user-profile/pending-orders', 'PendingOrders')->name('pendingorder');
+         Route::get('/user-profile/history', 'History')->name('history');
+         Route::get('/today-deal', 'TodayDeal')->name('todaydeal');
+         Route::get('/customer-service', 'CustomerService')->name('customerservice');
+    });
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified', 'role:admin'])->name('dashboard'); 
@@ -75,6 +79,9 @@ Route::middleware('auth', 'role:admin')->group(function () {
     });
     Route::controller(OrderController::class)->group(function(){
         Route::get('/admin/pending-orders', 'Index')->name('pendingorders');
+        Route::get('/admin/confirm-orders/{id}', 'ConfirmOrders')->name('confirmorder');
+        Route::get('/admin/compeleted-orders', 'CompletedOrders')->name('completedorders');
+
     });
 });
 

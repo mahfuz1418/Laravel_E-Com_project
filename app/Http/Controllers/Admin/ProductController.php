@@ -48,7 +48,7 @@ class ProductController extends Controller
 
         Product::insert([
             'product_name' => $request->product_name,
-            'slug' => strtolower(str_replace(' ','_', $request->subcategory_name)),
+            'slug' => strtolower(str_replace(' ','_', $request->product_name)),
             'product_short_des' => $request->product_short_des,
             'product_long_des' => $request->product_long_des,
             'price' => $request->price,
@@ -102,11 +102,11 @@ class ProductController extends Controller
         
 
         Product::findOrFail($id)->update([
-            // 'product_name' => $request->product_name,
-            // 'slug' => strtolower(str_replace(' ','_', $request->subcategory_name)),
-            // 'product_short_des' => $request->product_short_des,
-            // 'product_long_des' => $request->product_long_des,
-            // 'price' => $request->price,
+            'product_name' => $request->product_name,
+            'slug' => strtolower(str_replace(' ','_', $request->product_name)),
+            'product_short_des' => $request->product_short_des,
+            'product_long_des' => $request->product_long_des,
+            'price' => $request->price,
             'product_quantity' => $request->product_quantity,
         ]);
         return redirect()->route('allproducts')->with('message', 'Product Information updated Successfully!');

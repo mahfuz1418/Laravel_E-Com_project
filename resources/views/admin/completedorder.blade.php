@@ -4,14 +4,9 @@
 @endsection
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Page/</span> Pending Orders</h4>
-        @if (session()->has('message'))
-            <div class="alert alert-success text-center">
-                {{ session()->get('message') }}
-            </div>
-        @endif
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Page/</span>Confirmed Orders</h4>
         <div class="card">
-            <h5 class="card-header">All pending orders information</h5>
+            <h5 class="card-header">All confirmed orders information</h5>
             <div class="table-responsive text-nowrap">
                 <table class="table">
                     <thead>
@@ -22,20 +17,18 @@
                             <th>Shipping Address</th>
                             <th>Quantity</th>
                             <th>Total Bill Pay</th>
-                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                        @forelse ($pending_orders as $order)
+                        @forelse ($confirmed_orders as $order)
                             @php
                                 $product_name = App\Models\Product::where('id', $order->product_id)->value('product_name');
                                 $product_img = App\Models\Product::where('id', $order->product_id)->value('product_img');
                             @endphp
                             <tr>
                                 <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
-                                    <strong>{{ $order->user_id }}</strong>
-                                </td>
-                                <td>{{ $product_name }} </td>
+                                    <strong>{{ $order->user_id }}</strong></td>
+                                <td>{{ $product_name }}  </td>
                                 <td><img style="height: 50px" src="{{ asset($product_img) }}" alt=""></td>
                                 <td>
                                     <ul>
@@ -47,10 +40,6 @@
                                 </td>
                                 <td>{{ $order->quantity }}</td>
                                 <td>{{ $order->total_price }}</td>
-                                <td>
-                                    <a href="{{ route('confirmorder', $order->id) }}"
-                                        class="btn btn-success btn-sm">Confirm Now</a>
-                                </td>
                             </tr>
                         @empty
                         @endforelse
